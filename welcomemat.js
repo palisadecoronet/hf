@@ -1,4 +1,5 @@
 (function(){
+	print("Start");
 	var SOUND_URL = "https://raw.githubusercontent.com/palisadecoronet/hf/master/palihub%20sung.wav";
 	var loopTime = 1; // Loop for how long?  -1 is always on.
 	var soundURL = null;
@@ -11,10 +12,12 @@
 	var properties = null;	
 	
 	this.preload = function(pEntityID) {
+		print("Preloading...");
 	};
 	
 	this.unload = function(){
 		if (injector) {
+			print("Unloading...");
 			injector.stop();
 			injector = null;
 		}
