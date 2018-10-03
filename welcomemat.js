@@ -2,7 +2,6 @@
 	var SOUND_URL = "https://raw.githubusercontent.com/palisadecoronet/hf/master/palihub%20sung.wav";
 	var loopTime = 1; // Loop for how long?  -1 is always on.
 	var soundURL = null;
-	var lastSoundURL = null;
 	var receiverName = "";
 	var soundLoop = false;
 	var soundLocal = false;
@@ -22,7 +21,8 @@
 	};
 	
     this.enterEntity = function(pEntityID) {	
-		//var Me = AccountServices.username;
+		var Me = AccountServices.username;
+		print(Me+" entered the domain.");
         entityID = pEntityID;
 		properties = Entities.getEntityProperties(entityID, ["position"]); 
 		try {
@@ -38,22 +38,14 @@
 					loop: soundLoop,
 					localOnly: soundLocal
 				 });
+				 print("Welcome sound played.");
 				}, 5000);
 			}
-			lastSoundURL = soundURL;
 		} else {
-			if (lastSoundURL != soundURL) {
-				injector.stop();
-				injector = null;
-				try {
-					soundURL = SoundCache.getSound(lastSoundURL);
-				} catch (e){}
-			} else {
-				injector.setOptions({
-					position: properties.position,
-					volume: soundVolume
-				});
-			}
+			injector.setOptions({
+				position: properties.position,
+				volume: soundVolume
+			});
 		}
 	};
  })
